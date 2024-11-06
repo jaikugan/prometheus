@@ -1,0 +1,25 @@
+#first create a folder - mkdir ~/docker-prometheus
+#create a file - docker-compose.yml inside it with the following contents
+#you also need to copy prometheus.yml file inside the same directory
+
+version: '3.2'
+services:
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.0
+    container_name: cadvisor
+    network_mode: "host"         
+    ports:
+    - 8081:8080
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+    depends_on:
+    - redis
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+    - 6379:6379
+

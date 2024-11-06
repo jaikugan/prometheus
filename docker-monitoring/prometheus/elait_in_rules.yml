@@ -1,0 +1,35 @@
+#Original Developer           - Kugan 
+#Creation date                - 11/03/2024
+#Current Developer            - Kugan
+#Last Modified                - 11/03/2024
+#Title                        - Elait_in Application
+#Description                  - This script has the alert rules for SIT , UAT And PROD
+groups:
+  - name: Elait_In_Applications
+    rules:
+      - alert: Elait_In_Application_SIT
+        expr: absent(container_start_time_seconds{name="elait_in_elait-in-sit_1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Elait_In_Application_SIT_Service down"
+          description: "Elait_In_Application_SIT_Service container is down for more than 30 seconds."
+
+      - alert: Elait_In_Application_UAT
+        expr: absent(container_start_time_seconds{name="elait_in-elait-in-uat-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Elait_In_Application_UAT_Service down"
+          description: "Elait_In_Application_UAT_Service container is down for more than 30 seconds."
+      
+      - alert: Elait_In_Application_PROD
+        expr: absent(container_start_time_seconds{name="elait_in-elait-in-prod-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Elait_In_Application_PROD_Service down"
+          description: "Elait_In_Application_PROD_Service container is down for more than 30 seconds."

@@ -1,0 +1,94 @@
+#Original Developer           - Kugan 
+#Creation date                - 11/03/2024
+#Current Developer            - Kugan
+#Last Modified                - 11/03/2024
+#Title                        - Athmanirbar Application
+#Description                  - This script has the alert rules for SIT And PROD 
+
+############## Athmanirbar SIT Applications Rules ##########################
+groups:
+  - name: Athmanirbar_Applications_SIT
+    rules:
+      - alert: Common_Service
+        expr: absent(container_start_time_seconds{name="athmanirbar-athmanirbar-common-service-sit-1"})
+        for: 30s
+        labels:
+          severity: critical
+          team : athmanirbar
+        annotations:
+          summary: "SIT_Athmanirbar_Common_Service down"
+          description: "SIT_Athmanirbar_Common_Service container is down for more than 30 seconds."
+
+      - alert: Excel_Service
+        expr: absent(container_start_time_seconds{name="athmanirbar-athmanirbar-excel-service-sit-1"})
+        for: 30s
+        labels:
+          severity: critical
+          team : athmanirbar
+        annotations:
+          summary: "SIT_Athmanirbar_Excel_Service down"
+          description: "SIT_Athmanirbar_Excel_Service container is down for more than 30 seconds."
+
+      - alert: Login_Service 
+        expr: absent(container_start_time_seconds{name="athmanirbar-athmanirbar-login-service-sit-1"})
+        for: 30s
+        labels:
+          severity: critical
+          team : athmanirbar
+        annotations:
+          summary: "SIT_Athmanirbar_Login_Service down"
+          description: "SIT_Athmanirbar_Login_Service container is down for more than 30 seconds."
+
+      - alert: Athmanirbar_Whatsapp_Service
+        expr: absent(container_start_time_seconds{name="whatsapp-whatsapp-sit-1"})
+        for: 30s
+        labels:
+          severity: critical
+          team : athmanirbar
+        annotations:
+          summary: "SIT_Athmanirbar_Whatsapp_Service down"
+          description: "SIT_Athmanirbar_Whatsapp_Service container is down for more than 30 seconds."
+
+############## Athmanirbar PROD Applications Rules ##########################
+
+  - name: Athmanirbar_Applications_PROD
+    rules:
+      - alert: Common_Service
+        expr: absent(container_start_time_seconds{name="athmanirbar-athmanirbar-common-service-prod-1"})
+        for: 30s
+        labels:
+          severity: critical
+          team : athmanirbar
+        annotations:
+          summary: "PRODUCTION_Athmanirbar_Common_Service down"
+          description: "PRODUCTION_Athmanirbar_Common_Service container is down for more than 30 seconds."
+
+      - alert: Excel_Service
+        expr: absent(container_start_time_seconds{name="athmanirbar-athmanirbar-excel-service-prod-1"})
+        for: 30s
+        labels:
+          severity: critical
+          team : athmanirbar
+        annotations:
+          summary: "PRODUCTION_Athmanirbar_Excel_Service down"
+          description: "PRODUCTION_Athmanirbar_Excel_Service container is down for more than 30 seconds."
+
+      - alert: Login_Service 
+        expr: absent(container_start_time_seconds{name="athmanirbar-athmanirbar-login-service-prod-1"})
+        for: 30s
+        labels:
+          severity: critical
+          team : athmanirbar
+        annotations:
+          summary: "PRODUCTION_Athmanirbar_Login_Service down"
+          description: "PRODUCTION_Athmanirbar_Login_Service container is down for more than 30 seconds."
+
+      - alert: Athmanirbar_Whatsapp_Service
+        expr: absent(container_start_time_seconds{name="whatsapp-whatsapp-prod-1"})
+        for: 30s
+        labels:
+          severity: critical
+          team : athmanirbar
+        annotations:
+          summary: "PRODUCTION_Athmanirbar_Whatsapp_Service down"
+          description: "PRODUCTION_Athmanirbar_Whatsapp_Service container is down for more than 30 seconds."

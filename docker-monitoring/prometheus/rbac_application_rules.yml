@@ -1,0 +1,233 @@
+#Original Developer           - Kugan 
+#Creation date                - 11/03/2024
+#Current Developer            - Kugan
+#Last Modified                - 11/03/2024
+#Title                        - RBAC Application
+#Description                  - This script has the alert rules for SIT , UAT And PROD 
+
+groups:
+  - name: RBAC_SIT_Applications
+    rules:
+      - alert: Application_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-application-management-sit-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "SIT_RBAC_Application_Management_Service down"
+          description: "SIT_RBAC_Application_Management_Service container is down for more than 30 seconds."
+
+      - alert: Login_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-login-management-sit-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "SIT_RBAC_Login_Management_Service down"
+          description: "SIT_RBAC_Login_Management_Service container is down for more than 30 seconds."
+
+      - alert: Common_Management 
+        expr: absent(container_start_time_seconds{name="rbac-rbac-common-management-sit-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "SIT_RBAC_Common_Management_Service down"
+          description: "SIT_RBAC_Common_Management_Servicee container is down for more than 30 seconds."
+
+      - alert: Group_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-group-management-sit-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "SIT_RBAC_Group_Management_Service down"
+          description: "SIT_RBAC_Group_Management_Service container is down for more than 30 seconds."
+      
+      - alert: Role_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-role-management-sit-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "SIT_RBAC_Role_Management_Service down"
+          description: "SIT_RBAC_Role_Management_Service container is down for more than 30 seconds."
+      
+      - alert: Organization_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-organization-management-sit-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "SIT_RBAC_Organization_Management_Service down"
+          description: "SIT_RBAC_Organization_Management_Service container is down for more than 30 seconds."
+      
+      - alert: Access_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-access-management-sit-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "SIT_RBAC_Access_Management_Service down"
+          description: "SIT_RBAC_Access_Management_Service container is down for more than 30 seconds."
+
+      - alert: User_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-user-management-sit-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "SIT_RBAC_User_Management_Service down"
+          description: "SIT_RBAC_User_Management_Service container is down for more than 30 seconds."
+
+############################ RBAC UAT APPLICATIONS ############################
+ 
+  - name: RBAC_UAT_Applications
+    rules:
+      - alert: Application_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-application-management-uat-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "UAT_RBAC_Application_Management_Service down"
+          description: "UAT_RBAC_Application_Management_Service container is down for more than 30 seconds."
+
+      - alert: Login_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-login-management-uat-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "UAT_RBAC_Login_Management_Service down"
+          description: "UAT_RBAC_Login_Management_Service container is down for more than 30 seconds."
+
+      - alert: Common_Management 
+        expr: absent(container_start_time_seconds{name="rbac-rbac-common-management-uat-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "UAT_RBAC_Common_Management_Service down"
+          description: "UAT_RBAC_Common_Management_Servicee container is down for more than 30 seconds."
+
+      - alert: Group_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-group-management-uat-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "UAT_RBAC_Group_Management_Service down"
+          description: "UAT_RBAC_Group_Management_Service container is down for more than 30 seconds."
+      
+      - alert: Role_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-role-management-uat-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "UAT_RBAC_Role_Management_Service down"
+          description: "UAT_RBAC_Role_Management_Service container is down for more than 30 seconds."
+      
+      - alert: Organization_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-organization-management-uat-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "UAT_RBAC_Organization_Management_Service down"
+          description: "UAT_RBAC_Organization_Management_Service container is down for more than 30 seconds."
+      
+      - alert: Access_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-access-management-uat-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "UAT_RBAC_Access_Management_Service down"
+          description: "UAT_RBAC_Access_Management_Service container is down for more than 30 seconds."
+
+      - alert: User_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-user-management-uat-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "UAT_RBAC_User_Management_Service down"
+          description: "UAT_RBAC_User_Management_Service container is down for more than 30 seconds."
+
+########################## RBAC PROD APPLICATIONS #############################################
+
+  - name: RBAC_PROD_Applications
+    rules:
+      - alert: Application_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-application-management-prod-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "PRODUCTION_RBAC_Application_Management_Service down"
+          description: "PRODUCTION_RBAC_Application_Management_Service container is down for more than 30 seconds."
+
+      - alert: Login_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-login-management-prod-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "PRODUCTION_RBAC_Login_Management_Service down"
+          description: "PRODUCTION_RBAC_Login_Management_Service container is down for more than 30 seconds."
+
+      - alert: Common_Management 
+        expr: absent(container_start_time_seconds{name="rbac-rbac-common-management-prod-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "PRODUCTION_RBAC_Common_Management_Service down"
+          description: "PRODUCTION_RBAC_Common_Management_Servicee container is down for more than 30 seconds."
+
+      - alert: Group_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-group-management-prod-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+         summary: "PRODUCTION_RBAC_Group_Management_Service down"
+         description: "PRODUCTION_RBAC_Group_Management_Service container is down for more than 30 seconds."
+      
+      - alert: Role_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-role-management-prod-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "PRODUCTION_RBAC_Role_Management_Service down"
+          description: "PRODUCTION_RBAC_Role_Management_Service container is down for more than 30 seconds."
+      
+      - alert: Organization_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-organization-management-prod-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "PRODUCTION_RBAC_Organization_Management_Service down"
+          description: "PRODUCTION_RBAC_Organization_Management_Service container is down for more than 30 seconds."
+      
+      - alert: Access_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-access-management-prod-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "PRODUCTION_RBAC_Access_Management_Service down"
+          description: "PRODUCTION_RBAC_Access_Management_Service container is down for more than 30 seconds."
+
+      - alert: User_Management
+        expr: absent(container_start_time_seconds{name="rbac-rbac-user-management-prod-1"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "PRODUCTION_RBAC_User_Management_Service down"
+          description: "PRODUCTION_RBAC_User_Management_Service container is down for more than 30 seconds."

@@ -1,0 +1,105 @@
+groups:
+  - name: Server_Metrics
+    rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Prometheus target missing (instance {{ $labels.instance }})
+          description: "A Prometheus target has disappeared. An exporter might be crashed.\n  VALUE = {{ $value }}"
+
+      - alert: HostOutOfMemory-WARNING
+        expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 20) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: Host out of memory (instance {{ $labels.instance }})
+          description: "Node memory is filling up (< 20% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+      - alert: HostOutOfMemory-CRITICAL
+        expr: (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 10) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: Host out of memory (instance {{ $labels.instance }})
+          description: "Node memory is filling up (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+      - alert: HostOutOfDiskSpace-WARNING
+        expr: ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 10 and ON (instance, device, mountpoint) node_filesystem_readonly == 0) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: Host out of disk space (instance {{ $labels.instance }})
+          description: "Disk is almost full (< 15% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+      - alert: HostOutOfDiskSpace-CRITICAL
+        expr: ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 5 and ON (instance, device, mountpoint) node_filesystem_readonly == 0) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}
+        for: 2m
+        labels:
+          severity: critical 
+        annotations:
+          summary: Host out of disk space (instance {{ $labels.instance }})
+          description: "Disk is almost full (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+      - alert: HostLoadAverage-WARNING
+        expr: node_load5 >= 6
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Host Load average high (instance {{ $labels.instance }})
+          description: "Load average is high with the value 4\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+     
+      - alert: HostLoadAverage-CRITICAL
+        expr: node_load5 >= 9
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Host Load average high (instance {{ $labels.instance }})
+          description: "Load average is high with the value 6\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          
+  - name: Prometheus_Grafana_Applications
+    rules:
+      - alert: grafana_down
+        expr: absent(container_start_time_seconds{name="grafana"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "grafana down"
+          description: "grafana container is down for more than 30 seconds."
+          repeat_interval: 3m
+
+      - alert: prometheus_down
+        expr: absent(container_start_time_seconds{name="prometheus"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "prometheus down"
+          description: "prometheus container is down for more than 30 seconds."
+
+      - alert: cadvisor_down
+        expr: absent(container_start_time_seconds{name="cadvisor"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "cadvisor down"
+          description: "cadvisor container is down for more than 30 seconds."
+
+      - alert: alertmanager_down
+        expr: absent(container_start_time_seconds{name="alertmanager"})
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "alertmanager down"
+          description: "alertmanager container is down for more than 30 seconds."
+

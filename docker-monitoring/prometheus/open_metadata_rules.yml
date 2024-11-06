@@ -1,0 +1,48 @@
+#Original Developer           - Kugan
+#Creation date                - 20/05/2024
+#Current Developer            - Kugan
+#Last Modified                - 22/05/2024
+#Title                        - Open_Metadata  
+#Description                  - This script has the alert rules
+groups:
+  - name: Open_Metadata
+    rules:
+      - alert: Open_Metadata_Ingestion
+        expr: absent(container_start_time_seconds{name="openmetadata_ingestion"})
+        for: 30s
+        labels:
+          severity: action_required
+          team: openmetadata
+        annotations:
+          summary: "Open_Metadata_Ingestion_Service down"
+          description: "Open_Metadata_Ingestion_Service container is down for more than 30 seconds."
+
+      - alert: Open_Metadata_Server
+        expr: absent(container_start_time_seconds{name="openmetadata_server"})
+        for: 30s
+        labels:
+          severity: action_required
+          team: openmetadata
+        annotations:
+          summary: "Open_Metadata_Server_Service down"
+          description: "Open_Metadata_Server_Service container is down for more than 30 seconds."
+
+      - alert: Open_Metadata_Elasticsearch
+        expr: absent(container_start_time_seconds{name="openmetadata_elasticsearch"})
+        for: 30s
+        labels:
+          severity: action_required
+          team: openmetadata
+        annotations:
+          summary: "Open_Metadata_Elasticsearch_Service down"
+          description: "Open_Metadata_Elasticsearch_Service container is down for more than 30 seconds."
+
+      - alert: Open_Metadata_Mysql
+        expr: absent(container_start_time_seconds{name="openmetadata_mysql"})
+        for: 30s
+        labels:
+          severity: action_required
+          team: openmetadata
+        annotations:
+          summary: "Open_Metadata_Mysql_Service down"
+          description: "Open_Metadata_Mysql_Service container is down for more than 30 seconds."
