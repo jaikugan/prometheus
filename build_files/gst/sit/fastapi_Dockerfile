@@ -1,0 +1,11 @@
+#GST 
+FROM python:3
+LABEL stage=builder
+WORKDIR /api/fastapi/src
+ADD req req 
+RUN pip3 install -r req/requirements.txt
+COPY . .
+EXPOSE 5000
+
+# Run the application
+CMD [ "python3", "run.py" ]

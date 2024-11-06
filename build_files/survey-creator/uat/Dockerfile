@@ -1,0 +1,11 @@
+FROM node:16 as build
+LABEL stage=build
+WORKDIR /app
+COPY . .
+RUN npm install
+#RUN node --max-old-space-size=4096 `which npm` install
+FROM node:16-alpine
+COPY --from=build /app /
+EXPOSE 2580
+#CMD {"node --max-old-space-size=4096 app.js"}
+CMD ["node", "server.js"]
