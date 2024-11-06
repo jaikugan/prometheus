@@ -1,0 +1,83 @@
+version: "3.3"
+services:
+        # athmanirbar-sql-service-sit:
+        #image: athmanirbar-sql-service-sit:1.0
+        #ports:
+        #   - "6501:6501"
+        # volumes:
+        #     - "./db_layer:/db_layer"
+        #environment:
+        # NODE_PORT: 6501
+        # SERVER_HOST: "http://localhost"
+        # DATABASE_NAME: "ui_gen_sit"
+        # DB_USER_NAME: "uigen_sit_admin"
+        # DB_PASSWORD: "root"
+        # DB_HOST: 172.17.0.1
+    
+    athmanirbar-login-service-sit:
+        image: athmanirbar-login-service-sit:latest
+        ports:
+            - "6506:6506"
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        volumes:
+            - "./common-service:/common-service"
+            - "./excel-service:/excel-service"
+        environment:
+            DATABASE_NAME: "ui_gen_sit"
+            DB_USER_NAME: "uigen_sit_admin"
+            DB_PASSWORD: "root"    
+            NODE_PORT: 6506
+            DB_HOST: "172.17.0.1"
+            DIGINERVES_NODE_PORT: 4224
+            CORS_ORIGINS: "http://localhost:4200"
+            SERVER_HOST: "htpp://localhost"
+            RBAC_LOGIN: "http://host.docker.internal:5506/rbacsit/rbac/api/logino"
+            RBAC_SEND_VERIFY_CODE: "http://host.docker.internal:5506/rbacsit/rbac/api/forgot-password"
+            RBAC_PASSWORD_VERFICATION: "http://host.docker.internal:5506/rbacsit/rbac/api/verify-code"
+            DIGINERVES_RBAC_LOGIN: "http://localhost:2033/diginerves_rbac/api/logino"
+
+    athmanirbar-common-service-sit:
+        image: athmanirbar-common-service-sit:latest
+        ports:
+            - "6503:6503"
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        volumes:
+            - "./excel-service:/excel-service"
+            - "./attachments:/opt/docker/sit/apps/athmanirbar/attachments"
+        environment:
+            NODE_PORT: 6503
+            DATABASE_NAME: "ui_gen_sit"
+            DB_USER_NAME: "uigen_sit_admin"
+            DB_PASSWORD: "root"
+            FROM_MAI: "noreply@3ii.ai"
+            FROM_PASS: "Nr.3ii#2024"
+            DB_HOST: "172.17.0.1"
+            SERVER_HOST: "http://localhost"
+            FILE_PATH: "http://host.docker.internal:6503"
+            RBAC_FETCH_ROLES: "http://host.docker.internal:5505/rbacsit/rbac/api/common/fetch-group"
+            RBAC_FETCH_USERS: "http://host.docker.internal:5505/rbacsit/rbac/api/common/fetch-users"
+            DIGINERVES_RBAC_FETCH_ROLES: "http://localhost:2032/diginerves_rbac/api/common/fetch-group"
+            DIGINERVES_RBAC_FETCH_USERS: "http://localhost:2032/diginerves_rbac/api/common/fetch-users"
+            S3_BUCKET_NAME: "3iiai-dev"
+            AWS_ACCESS_KEY_ID: "AKIAU6GDZMJE7ZSUTDNG"
+            AWS_SECRET_ACCESS_KEY: "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"
+            AWS_REGION: "ap-south-1"
+    
+    athmanirbar-excel-service-sit:
+        image: athmanirbar-excel-service-sit:latest
+        ports:
+            - "6504:6504"
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        volumes:
+            - "./common-service:/common-service"
+        environment:
+            DATABASE_NAME: "ui_gen_sit"
+            DB_USER_NAME: "uigen_sit_admin"
+            DB_PASSWORD: "root"    
+            NODE_PORT: 6504
+            DIGINERVES_NODE_PORT: 2030
+            SERVER_HOST: "http://localhost"
+            DB_HOST: "172.17.0.1"
