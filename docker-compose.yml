@@ -1,0 +1,11 @@
+version: "3"
+services:
+    survey-creator-sit:
+        image: survey-creator-service-sit:latest
+        ports:
+            - "2451:2451"
+        environment:
+            API_URL: "/survey-creatorsit/survey/api"
+            MONGOURL: "mongodb://surveycreatorsit_admin:admin_surveycreatorsit_2024@172.17.0.1:27017/survey_creator_sit"
+            FROMPASS: "Project@22"
+            NODE_PORT: "2451"
